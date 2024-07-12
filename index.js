@@ -1,6 +1,6 @@
 import express from "express"
 //const express =require("express") 
-import bcrypt from "bcrypt"
+
  import cors from "cors"
 
 

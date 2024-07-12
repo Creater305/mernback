@@ -1,3 +1,5 @@
+
+process.traceDeprecation = true;
 import express from "express"
 //const express =require("express") 
 
@@ -124,6 +126,15 @@ app.use("/newsRoute",newsRoute);
 
 
 
-app.listen(8000,()=> {
+app.listen(8000, () => {
     console.log("port connected")
-})
+  }).on('error', (err) => {
+    if (err.code === 'EADDRINUSE') {
+      console.log('Port 8000 is already in use. Trying a different port...');
+      app.listen(8001, () => {
+        console.log("port connected on 8001")
+      });
+    } else {
+      console.error(err);
+    }
+  });

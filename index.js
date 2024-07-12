@@ -38,6 +38,7 @@ required: true
 })
 
 const collection=mongoose.model("collection",newSchema)
+mongoose.set('strictQuery', true);
 
 
 app.get("/",cors(),(req,res)=>{
@@ -55,17 +56,9 @@ app.post("/", async(req,res)=>{
         if(check){
             
           
-
-            const passwordMatch = bcrypt.compare(password, check.password);
-    
-            if (passwordMatch) {
-                console.log("Password is correct.");
-                res.json("exist");
-            }else {
-                console.log("Incorrectpassword");
-                res.json("Inncorrectpassword");
+            console.log("Password is correct.");
+            res.json("exist");
             
-            }
 
         }
 

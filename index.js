@@ -19,14 +19,20 @@ app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors())
 
-mongoose.connect("mongodb+srv://kingsinha7305:1234@cluster0.uaqx5yj.mongodb.net/pro1")
 
+
+mongoose.connect("mongodb+srv://kingsinha7305:1234@cluster0.uaqx5yj.mongodb.net/pro1")
+var db=mongoose.connection;
+db.on("open",()=>console.log("Connected to DB"))
+db.on("error",()=>console.log("Not Connected to DB"))
+
+/* 
 .then(()=>{
 console.log("mongodb connected");
 })
 .catch(()=>{
 console.log('failed');
-})
+}) */
 
 const newSchema=new mongoose.Schema({
 email:{
@@ -41,6 +47,7 @@ required: true
 
 const collection=mongoose.model("collection",newSchema)
 mongoose.set('strictQuery', true);
+
 
 
 app.get("/",cors(),(req,res)=>{
@@ -126,12 +133,12 @@ app.use("/newsRoute",newsRoute);
 
 
 
-app.listen(4000, () => {
+app.listen(8000, () => {
     console.log("port connected")
   }).on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
       console.log('Port 8000 is already in use. Trying a different port...');
-      app.listen(4001, () => {
+      app.listen(8001, () => {
         console.log("port connected on 8001")
       });
     } else {
